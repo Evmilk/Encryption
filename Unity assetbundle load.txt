@@ -1,0 +1,15 @@
+    IEnumerator GetObj()
+    {
+        string url = "file:///D:/AU/AssetBundles/ty";
+        WWW www = WWW.LoadFromCacheOrDownload(url,3);
+        yield return www;
+        AssetBundle bun = www.assetBundle;
+        AssetBundleRequest  ar = bun.LoadAssetAsync("Gap", typeof(GameObject));
+        yield return ar;
+        GameObject ga = ar.asset as GameObject;
+        GameObject ss = Instantiate(ga, new Vector3(spawnp.transform.position.x, spawnp.transform.position.y +  Random.Range(1,10)), Quaternion.identity) as GameObject;
+        ss.transform.position = spawnp.transform.position;
+        ss.transform.SetParent(setPa.transform);
+        bun.Unload(false);
+        www.Dispose();
+    }
